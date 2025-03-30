@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                <form action="/team/manage?action=insert" method="POST">
+                    Name:<br>
+                    <input type="text" name="Name" value="{{ obj.data[0].Name }}" />
+                    <br>
+
+                    ID:<br>
+                    <input type="text" name="id" value="" />
+                    <br> 
+
+                    Division:<br>
+                    <select name="Division">
+                        {% for div in obj.divs  %}
+                            {% if  obj.data[0].Division == div.value %}
+                                <option selected="true" value="{{ div.value }}">{{ div.text }}</option>
+                            {% else %}
+                                <option value="{{ div.value }}">{{ div.text }}</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    </select> 
+                    <br> 
+                    Abbreviation:<br>
+                    <input type="text" name="abbr" value="" />
+                   
+
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="teams"></div>
+    <script type=text/javascript>
+    var data = [
+        {
+            x: {{ obj.chart.x|tojson }},
+            y: {{ obj.chart.y|tojson }},
+            type: 'bar'
+        }
+    ];
+    var layout = {
+        title: {
+            text: 'Month AVG score in home game'
+        },
+        xaxis: {
+            title: {
+                text: 'Month'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Score'
+            }
+        }
+    }
+
+    Plotly.newPlot('teams', data, layout)
+    </script>
+{% endblock %}

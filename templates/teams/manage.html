@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text" >
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div>
+                <form action="/team/manage?pkval={{ obj.data[0].teamKey }}&action=update" method="POST">
+                    Name:<br>
+                    <input type="text" name="Name" value="{{ obj.data[0].Name }}" />
+                    <br>
+
+                    ID:<br>
+                    {{ obj.data[0].teamid }}
+                    <input type="hidden" name="id" value="{{ obj.data[0].teamid }}"/>
+                    <br>
+
+                    Division:<br>
+                    <select name="Division">
+                        {% for div in obj.divs  %}
+                            {% if  obj.data[0].Division == div.value %}
+                                <option selected="true" value="{{ div.value }}">{{ div.text }}</option>
+                            {% else %}
+                                <option value="{{ div.value }}">{{ div.text }}</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    </select>
+                    <br>
+
+                    Abbreviation:<br>
+                    <input type="text" name="abbr" value="{{ obj.data[0].abbr }}" />
+                    <br> 
+
+                    Win:<br>
+                    <input type="'text" name="Win" value="{{ obj.data[0].Win }}">
+                    <br>
+
+                    Lose:<br>
+                    <input type="'text" name="Lose" value="{{ obj.data[0].Lose }}">
+                    <br>
+
+                    Standing:<br>
+                    <input type="'text" name="Standing" value="{{ obj.data[0].Standing }}">
+                    <br>
+
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+            <div>
+                <br><br>
+                <a href="/team/manage?pkval={{ obj.data[0].teamKey }}&action=delete">Delete</a>
+            </div>
+{% endblock %}

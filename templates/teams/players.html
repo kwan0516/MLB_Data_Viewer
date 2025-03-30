@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        .player-name {
+            text-align: left;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none; /* 移除連結的下劃線 */
+            color: #00008B; /* 設定名字的顏色 */
+        }
+        a:hover {
+            text-decoration: underline; /* 滑鼠懸停時有下劃線 */
+        }
+    </style>
+
+    <div> <a href="manage?pkval={{ obj.data[0].teamKey }}&action=edit">Edit team information</a></div>
+    <div> <a href="../player/manage?team={{ obj.data[0].Name }}&pkval=new">Manage player</a></div>
+    <br>
+    View schedule
+    <br>
+
+    {{ obj.data[0].Name }}<br>
+    Division: {{ obj.data[0].Division }}<br>
+    Win: {{ obj.data[0].Win }}<br>
+    Lose: {{ obj.data[0].Lose }}<br>
+    Standing: {{ obj.data[0].Standing }}<br>
+
+   <br>
+    <br>
+    <!-- player table -->
+    <table>
+        <thead>
+            <tr>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=number">Num</a></th>
+                <th>Player</th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=position">Position</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=PA">PA</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=AB">AB</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=H">H</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=BB">BB</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=RBI">RBI</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=AVG">AVG</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=SLG">SLG</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=OBP">OBP</a></th>
+                <th><a href="manage?pkval={{ obj.data[0].teamKey }}&sort=OPS">OPS</a></th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for player in players.data  %}
+            <tr>
+                <td>{{ player.number }}</td>
+                <td class="player-name">
+                    <span>
+                        <a href="../player/manage?team={{ obj.data[0].Name}}&pkval={{ player.playerKey }}">{{ player.f_name }} {{player.l_name }}</a>
+                    </span>
+                </td>
+                <td>{{  player.position }}</td>
+                <td>{{  player.PA }}</td>
+                <td>{{  player.AB }}</td>
+                <td>{{  player.H }}</td>
+                <td>{{  player.BB }}</td>
+                <td>{{  player.RBI }}</td>
+                <td>{{  player.AVG }}</td>
+                <td>{{  player.SLG }}</td>
+                <td>{{  player.OBP }}</td>
+                <td>{{  player.OPS }}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    <table>
+{% endblock %}

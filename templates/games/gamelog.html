@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+/* 固定區塊樣式 */
+.floating-box {
+    position: fixed; /* 固定位置 */
+    top: 10px; /* 距離視窗頂部 20px */
+    right: 50px; /* 距離視窗右側 20px */
+    width: 100px;
+    padding: 15px;
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+/* 裡面的連結 */
+.floating-box a {
+    color: #00f;
+    text-decoration: none;
+}
+.floating-box a:hover {
+    text-decoration: underline;
+}
+.inn {
+    text-align: left;
+    /* padding-left: 10px; */
+    font-weight: bold;
+    font-size: x-large;
+}
+.play {
+        text-align: left;
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
+    }
+.play .result {
+        display: inline-block;
+        /* 讓元素具有 block 特性以設置 padding */
+        padding: 4px 10px;
+        /* 控制內邊距，讓文字居中 */
+        font-size: 16px;
+        /* 文字大小 */
+        color: #007bff;
+        /* 文字顏色 (藍色) */
+        background-color: transparent;
+        /* 背景透明 */
+        border: 1px solid #007bff;
+        /* 邊框顏色 */
+        border-radius: 20px;
+        /* 圓角邊框 */
+        text-align: center;
+        /* 文字置中 */
+        font-weight: bold;
+        /* 粗體文字 */
+
+}
+.play div {
+    margin-right: 20px;
+}
+
+play>div:last-child {
+    margin-right: 0;
+}
+.action {
+    text-align: left;
+    padding-left: 15px;
+    font-style: italic;
+}
+.final {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}
+.score {
+    text-align: left;
+    padding-left: 10px;
+    font-style: italic;
+    font-weight: bold;
+}
+.light {
+    display: flex;
+    align-items: center;
+}
+
+.light span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #b9b9b9;
+    background-color: #fff;
+    border-radius: 50%;
+    margin-right: 2px
+}
+
+.strike .active {
+    border-color: #ffcc00;
+    background-color: #ffcc00;
+}
+
+.ball .active {
+    border-color: #42d800;
+    background-color: #42d800;
+}
+
+.out .active {
+    border-color: #ff0000;
+    background-color: #ff0000;
+}
+.resized-img {
+    padding-left: 10px;
+    width: 40px;
+    height:auto;
+}
+</style>
+    <div class="floating-box">
+        <h3>Links</h3>
+        {% for log in obj.data %}
+            {% if log.type == "inning change" %}
+            <a href="#{{ log.halfInning }}{{ log.inning }}">{{ log.halfInning[:3] }}{{ log.inning }}</a><br>
+            {% endif %}
+        {% endfor %}
+        <a href="/game?gameid={{ obj.data[0].gameid }}">Back to box</a>
+    </div>
+
+    {% for log in obj.data %}
+        {% if log.type == "inning change" %}
+        <div class="inn" id="{{ log.halfInning }}{{ log.inning }}">
+            <br><div>{{ log.halfInning }} {{ log.inning }}</div>
+        </div>
+        {% endif %}
+        {% if log.type == "play" %}
+        <div class="play">
+            <div>
+                <span>{{ log.batterName }}</span>
+                <span class="result">{{ log.event }}</span>
+            </div>
+            <div class="light strike">
+                <span class="{{ 'active' if log.strike > 0 else ''}}"></span>
+                <span class="{{ 'active' if log.strike > 1 else ''}}"></span>
+                <span class="{{ 'active' if log.strike > 2 else ''}}"></span>
+            </div>
+            <div class="light ball">
+                <span class="{{ 'active' if log.ball > 0 else ''}}"></span>
+                <span class="{{ 'active' if log.ball > 1 else ''}}"></span>
+                <span class="{{ 'active' if log.ball > 2 else ''}}"></span>
+                <span class="{{ 'active' if log.ball > 3 else ''}}"></span>
+            </div>
+            <div class="light out">
+                <span class="{{ 'active' if log.out > 0 else ''}}"></span>
+                <span class="{{ 'active' if log.out > 1 else ''}}"></span>
+                <span class="{{ 'active' if log.out > 2 else ''}}"></span>
+                <div>
+                        <img class="resized-img" src="../../static/images/base{{ log.situation_after[-2] }}.png">
+                </div>
+            </div>
+            
+        </div>
+
+            {% if log.RBI > 0 %}
+            <div class="score">
+                <div>
+                    {{ log.awayScore }} &emsp; : &emsp; {{ log.homeScore }}
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+        {% if log.type == "action" %}
+            <div class="action">
+                <div>
+                    {{ log.event }}
+                </div>
+            </div>
+        {% endif %}
+        
+    {% endfor %}
+        
+    <br>
+    <br>
+    <div class="final">
+        <div> {{ game.data[0].awayTeam }}  &emsp; {{ game.data[0].awayScore }}&emsp; <strong>Final</strong>&emsp;
+         {{ game.data[0].homeScore }}  &emsp;{{ game.data[0].homeTeam }}    </div>
+    </div>
+
+
+
+{% endblock %}

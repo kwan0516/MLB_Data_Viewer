@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                Add a player for {{ obj.data[0].team }}
+                <form action="/player/manage?team={{ obj.data[0].team }}&action=insert" method="POST">
+                    playerID:<br>
+                    <input type="text" name="ID" value="{{ obj.data[0].playerID }}" />
+                    <br>
+
+                    First Name:<br>
+                    <input type="text" name="fname" value="{{ obj.data[0].f_name }}" />
+                    <br>
+
+
+                    Last Name:<br>
+                    <input type="text" name="lname" value="{{ obj.data[0].l_name }}" />
+                    <br>
+
+
+                    Team:<br>
+                    {{ obj.data[0].team }}
+                    <input type="hidden" name="team" value="{{ obj.data[0].team }}"/>
+                    <br>
+
+                    Number:<br>
+                    <input type="text" name="num" value="{{ obj.data[0].number }}" />
+                    <br>
+
+                    Height:<br>
+                    <input type="text" name="height" value="{{ obj.data[0].height }}" />
+                    <br>
+
+                    Weight:<br>
+                    <input type="text" name="weight" value="{{ obj.data[0].weight }}" />
+                    <br>
+
+                    MLB debut day:<br>
+                    <input type="date" id="start" name="dd" value="2000-01-01" />
+                    <br>
+
+                    Birthday:<br>
+                    <input type="date" id="start" name="bd" value="2000-01-01" />
+                    <br>
+
+                    Position:<br>
+                    <input type="text" name="pos" value="{{ obj.data[0].position }}" />
+                    <br>
+
+                    B/T:<br>
+                    <input type="text" name="bt" value="" />
+                    <br>
+
+
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Main menu</h1>
+      <div id="menumsg">
+		Hello, {{ me.favoriteTeam }} fan {{ me.name }}
+	  </div>
+    View <a href="/team?name={{ me.favoriteTeam }}"> {{ me.favoriteTeam }}</a> info <br>
+    <a href="/game/schedule">View game schedule</a><br>
+    <a href="/leaderboard">View leaderboard</a><br>
+	  <br><br>
+	
+    <a href="/logout">Logout</a><br>
+	
+{% endblock %}

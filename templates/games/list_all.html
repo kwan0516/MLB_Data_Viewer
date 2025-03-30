@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .grid {
+      display: grid;
+      grid-template-columns: 200px auto; /* 第一列自適應，第二列固定寬度 */
+    }
+</style>
+
+<div class="error_text">
+    {% if obj.errors|length > 0 %}
+        {% for error in obj.errors  %}
+            <div>{{ error }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<form action="/game/schedule">
+    Game day:<br>
+    <input type="date" name="date" value="{{ date }}"/>
+    <br>
+
+    <input type="submit" value="search" />
+
+</form>
+
+
+    {% if obj.data|length == 0 %}
+        No game today!
+    {% else %}
+        {% for game in obj.data %}
+            <div class="grid">
+                <div>{{ game.awayTeam }} {{ game.awayScore }} </div>
+                <div>: {{ game.homeScore }} {{ game.homeTeam }} <a href="/game?gameid={{ game.gameid }}">View game</a></div> <br>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,15 @@
+db:
+  host: 'mysql.example.org'
+  user: '____'
+  passwd: '_____'
+  db: 'ia637'
+  port: 3306
+tables:
+  user: 'user'
+  team: 'team'
+  game: 'game'
+  player: 'players'
+  gamelog: 'gamelog'
+  batterbox: 'batterbox'
+  pitcherbox: 'pitcherbox'
+  linescore: 'linescore'

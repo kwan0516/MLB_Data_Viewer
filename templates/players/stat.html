@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    {% if me.role == "admin" %}
+
+    <a href="/player/manage?team={{ obj.data[0].team }}&pkval={{ obj.data[0].playerKey }}&action=edit">Edit player</a>
+
+    {% endif %}
+	<br><br>
+
+    {{ obj.data[0].f_name }} {{ obj.data[0].l_name }}<br>
+    Team: {{ obj.data[0].team }}         Number: {{ obj.data[0].number }}<br>
+    Height: {{ obj.data[0].height }}     Weight: {{ obj.data[0].weight }}<br>
+    Birthday: {{ obj.data[0].birthday }}<br>
+    MLB debut date: {{ obj.data[0].MLB_debut_date }}<br>
+    Postition: {{ obj.data[0].position }}<br>
+    B/T: {{ obj.data[0].BT }}<br>
+    PA: {{ obj.data[0].PA }}<br>
+    AB: {{ obj.data[0].AB }}<br>
+    H: {{ obj.data[0].H }}<br>
+    BB: {{ obj.data[0].BB }}<br>
+    RBI: {{ obj.data[0].RBI }}<br>
+    AVG: {{ obj.data[0].AVG }}<br>
+    SLG: {{ obj.data[0].SLG }}<br>
+    OBP: {{ obj.data[0].OBP }}<br>
+    OPS: {{ obj.data[0].OPS }}<br>
+    
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        .player-name {
+            text-align: left;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none; /* 移除連結的下劃線 */
+            color: #00008B; /* 設定名字的顏色 */
+        }
+        a:hover {
+            text-decoration: underline; /* 滑鼠懸停時有下劃線 */
+        }
+    </style>
+   <br>
+    View schedule
+    <br>
+
+    {{ obj.data[0].Name }}<br>
+    Division: {{ obj.data[0].Division }}<br>
+    Win: {{ obj.data[0].Win }}<br>
+    Lose: {{ obj.data[0].Lose }}<br>
+    Standing: {{ obj.data[0].Standing }}<br>
+
+    <a href="team/stat?team={{ obj.data[0].Name }}">View more stat</a>
+
+   <br>
+    <br>
+    <!-- player table -->
+    <table>
+        <thead>
+            <tr>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=number">Num</a></th>
+                <th>Player</th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=position">Position</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=PA">PA</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=AB">AB</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=H">H</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=BB">BB</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=RBI">RBI</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=AVG">AVG</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=SLG">SLG</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=OBP">OBP</a></th>
+                <th><a href="/team?name={{ obj.data[0].Name }}&sort=OPS">OPS</a></th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for player in players.data  %}
+            <tr>
+                <td>{{ player.number }}</td>
+                <td class="player-name">
+                    <span>
+                        <a href="../player?team={{ obj.data[0].Name}}&playerid={{ player.playerID }}">{{ player.f_name }} {{player.l_name }}</a>
+                    </span>
+                </td>
+                <td>{{  player.position }}</td>
+                <td>{{  player.PA }}</td>
+                <td>{{  player.AB }}</td>
+                <td>{{  player.H }}</td>
+                <td>{{  player.BB }}</td>
+                <td>{{  player.RBI }}</td>
+                <td>{{  player.AVG }}</td>
+                <td>{{  player.SLG }}</td>
+                <td>{{  player.OBP }}</td>
+                <td>{{  player.OPS }}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+    <table>
+{% endblock %}

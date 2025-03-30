@@ -1,0 +1,42 @@
+{% extends "loginbase.html" %}
+
+{% block content %}
+    <h1>Sign up</h1>
+	{% if msg %}
+      <div id="signmsg">
+        {{ msg }}
+	  </div>
+    {% endif %}
+		
+	<form action="signup" method="POST">
+		Username:<br>
+		<input type="text" name="name" />
+        <br><br>
+		
+		Password:<br>
+		<input type="password" name="password" />
+        <br><br>
+		
+        Retype Password:<br>
+        <input type="password" name="password2" value="" />
+        <br>
+        
+        <br>
+        Favorite team:<br>
+        <select name="favoriteTeam">
+            {% for team in obj.teams %}
+                {% if obj.data[0].favoriteTeam == team.value %}
+                    <option selected="true" value="{{ team.value }}">{{ team.text }}</option>
+                {% else %}
+                    <option value="{{ team.value }}">{{ team.text }}</option>
+                {% endif %}
+            {% endfor %}
+
+        </select>
+		<br>
+		<br>
+		<input type="submit" value="Sign Up"/>
+
+	</form>
+
+{% endblock %}

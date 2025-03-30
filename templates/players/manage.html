@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+            <div class="error_text">
+                {% if obj.errors|length > 0 %}
+                    {% for error in obj.errors  %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+				{% endif %}
+            </div>
+            <div>
+                <form action="/player/manage?team={{ obj.data[0].team }}&pkval={{ obj.data[0].playerKey }}&action=update" method="POST">
+                    playerID:<br>
+                    <input type="text" name="ID" value="{{ obj.data[0].playerID }}" />
+                    <br>
+
+                    First Name:<br>
+                    <input type="text" name="fname" value="{{ obj.data[0].f_name }}" />
+                    <br>
+
+
+                    Last Name:<br>
+                    <input type="text" name="lname" value="{{ obj.data[0].l_name }}" />
+                    <br>
+
+
+                    Team:<br>
+                    <select name="team">
+                        {% for team in obj.teams  %}
+                            {% if  obj.data[0].team == team.team %}
+                                <option selected="true" value="{{ team.team }}">{{ team.text }}</option>
+                            {% else %}
+                                <option value="{{ team.team }}">{{ team.text }}</option>
+                            {% endif %}
+                        {% endfor %}
+
+                    </select>
+                    <br>
+
+                    Number:<br>
+                    <input type="text" name="num" value="{{ obj.data[0].number }}" />
+                    <br>
+
+                    MLB debut day:<br>
+                    <input type="date" id="start" name="dd" value="{{ obj.data[0].MLB_debut_date }}" />
+                    <br>
+
+                    Birthday:<br>
+                    <input type="date" id="start" name="bd" value="{{ obj.data[0].birthday }}" />
+                    <br>
+
+                    Position:<br>
+                    <input type="text" name="pos" value="{{ obj.data[0].position }}" />
+                    <br>
+
+                    Height:<br>
+                    <input type="text" name="height" value="{{ obj.data[0].height }}" />
+                    <br>
+
+                    Weight:<br>
+                    <input type="text" name="weight" value="{{ obj.data[0].weight }}" />
+                    <br>
+
+                    B/T:<br>
+                    <input type="text" name="bt" value="{{ obj.data[0].BT }}" />
+                    <br>
+                    PA:<br>
+                    <input type="text" name="PA" value="{{ obj.data[0].PA }}" />
+                    <br>
+                    AB:<br>
+                    <input type="text" name="AB" value="{{ obj.data[0].AB }}" />
+                    <br>
+                    H:<br>
+                    <input type="text" name="H" value="{{ obj.data[0].H }}" />
+                    <br>
+                    BB:<br>
+                    <input type="text" name="BB" value="{{ obj.data[0].BB }}" />
+                    <br>
+                    RBI:<br>
+                    <input type="text" name="RBI" value="{{ obj.data[0].RBI }}" />
+                    <br>
+                    AVG:<br>
+                    <input type="text" name="AVG" value="{{ obj.data[0].AVG }}" />
+                    <br>
+                    SLG:<br>
+                    <input type="text" name="SLG" value="{{ obj.data[0].SLG }}" />
+                    <br>
+                    OBP:<br>
+                    <input type="text" name="OBP" value="{{ obj.data[0].OBP }}" />
+                    <br>
+                    OPS:<br>
+                    <input type="text" name="OPS" value="{{ obj.data[0].OPS }}" />
+                    <br>
+
+                    <br>
+                    <br>
+                    <input type="submit" value="Submit" />
+                </form>
+                
+            </div>
+            <div>
+                <br><br>
+                <a href="/player/manage?team={{ obj.data[0].team }}&pkval={{ obj.data[0].playerKey }}&action=delete">Delete</a>
+            </div>
+{% endblock %}
